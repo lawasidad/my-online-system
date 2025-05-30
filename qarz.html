@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>داشبۆردی قەرز - پیشەیی و جۆراوجۆر</title>
+<title>داشبۆردی قەرز - ریسپۆنسیڤ</title>
 <style>
-  /* Reset & base */
   * {
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -19,7 +18,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 30px;
+    padding: 20px 15px;
   }
   .container {
     background: #fff;
@@ -27,18 +26,17 @@
     width: 900px;
     max-width: 100%;
     box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-    padding: 40px;
+    padding: 40px 30px;
   }
   h1 {
     text-align: center;
-    font-size: 2.6rem;
-    margin-bottom: 30px;
+    font-size: 2.4rem;
+    margin-bottom: 25px;
     color: #5d3f6a;
     font-weight: 900;
     letter-spacing: 2px;
   }
 
-  /* فرم زیادکردن */
   form {
     display: flex;
     gap: 25px;
@@ -90,7 +88,6 @@
     background: #71368a;
   }
 
-  /* هەڵەکان */
   .error {
     color: #e74c3c;
     font-weight: 600;
@@ -99,7 +96,6 @@
     display: none;
   }
 
-  /* داشبۆرد */
   .dashboard {
     display: flex;
     gap: 30px;
@@ -122,17 +118,6 @@
     transform: translateY(-8px);
     box-shadow: 0 12px 35px #9b59b6aa;
   }
-  .card p.title {
-    font-size: 1.2rem;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    color: #71368a;
-  }
-  .card p.amount {
-    font-size: 2.4rem;
-    color: #9b59b6;
-    font-weight: 900;
-  }
   .card.red {
     background: linear-gradient(135deg, #ffe6e6, #ffb3b3);
     color: #b83030;
@@ -154,7 +139,6 @@
     color: #064a8f;
   }
 
-  /* لیستی کریار و قەرز */
   table {
     width: 100%;
     border-collapse: collapse;
@@ -169,6 +153,7 @@
   th, td {
     padding: 15px 20px;
     text-align: center;
+    word-break: break-word;
   }
   tbody tr:nth-child(even) {
     background: #f5f5f5;
@@ -185,6 +170,54 @@
     color: #5d3f6a;
   }
 
+  /* ریسپۆنسیڤ */
+  @media (max-width: 1024px) {
+    .container {
+      padding: 30px 20px;
+      width: 100%;
+    }
+    form > div {
+      flex: 1 1 45%;
+    }
+    .dashboard {
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .card {
+      flex: 1 1 45%;
+      margin-bottom: 20px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    body {
+      padding: 15px 10px;
+    }
+    form {
+      flex-direction: column;
+    }
+    form > div {
+      flex: 1 1 100%;
+    }
+    button {
+      font-size: 1.15rem;
+      padding: 13px 0;
+    }
+    .dashboard {
+      flex-direction: column;
+      gap: 15px;
+    }
+    .card {
+      flex: 1 1 100%;
+      margin-bottom: 15px;
+    }
+    table {
+      font-size: 0.85rem;
+    }
+    th, td {
+      padding: 10px 12px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -237,7 +270,6 @@
         </tr>
       </thead>
       <tbody>
-        <!-- لیستی قەرزەکان لێرە زیاد دەکرێت -->
       </tbody>
     </table>
   </div>
