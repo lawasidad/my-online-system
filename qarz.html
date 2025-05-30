@@ -25,7 +25,7 @@
     <!-- پەڕەی سەرەکی -->
     <section id="dashboardSection">
       <h2 class="text-2xl font-semibold mb-4">پەڕەی سەرەکی</h2>
-      <div class="mb-6 flex gap-4 items-center justify-end">
+      <div class="mb-6 flex gap-4 items-center justify-end flex-wrap">
         <label for="filterMonth" class="text-gray-700">فلتەری مانگ:</label>
         <input type="month" id="filterMonth" class="border border-gray-300 rounded p-2" />
         <button onclick="applyDateFilter()" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">فلتەرکردن</button>
@@ -64,13 +64,13 @@
     <section id="loanListSection" class="hidden mt-6">
       <h2 class="text-2xl font-semibold mb-4">📋 لیستی قەرزەکان</h2>
       <div class="overflow-x-auto">
-        <table class="w-full border-collapse border border-gray-300 text-right">
+        <table class="w-full table-auto border-collapse border border-gray-300 text-right">
           <thead class="bg-gray-100">
             <tr>
-              <th class="border border-gray-300 px-4 py-2">ناو</th>
-              <th class="border border-gray-300 px-4 py-2">بڕ</th>
-              <th class="border border-gray-300 px-4 py-2">بەروار</th>
-              <th class="border border-gray-300 px-4 py-2">تێبینی</th>
+              <th class="border border-gray-300 px-3 py-2 text-sm">ناو</th>
+              <th class="border border-gray-300 px-3 py-2 text-sm">بڕ</th>
+              <th class="border border-gray-300 px-3 py-2 text-sm">بەروار</th>
+              <th class="border border-gray-300 px-3 py-2 text-sm">تێبینی</th>
             </tr>
           </thead>
           <tbody id="loanList"></tbody>
@@ -94,13 +94,13 @@
     <section id="customerSummarySection" class="hidden mt-6">
       <h2 class="text-2xl font-semibold mb-4">📊 کورتەی کڕیار</h2>
       <div class="overflow-x-auto">
-        <table class="w-full border-collapse border border-gray-300 text-right">
+        <table class="w-full table-auto border-collapse border border-gray-300 text-right">
           <thead class="bg-gray-100">
             <tr>
-              <th class="border border-gray-300 px-4 py-2">ناوی کڕیار</th>
-              <th class="border border-gray-300 px-4 py-2">کۆی قەرز</th>
-              <th class="border border-gray-300 px-4 py-2">کۆی پارەدان</th>
-              <th class="border border-gray-300 px-4 py-2">ماوەی قەرز</th>
+              <th class="border border-gray-300 px-3 py-2 text-sm">ناوی کڕیار</th>
+              <th class="border border-gray-300 px-3 py-2 text-sm">کۆی قەرز</th>
+              <th class="border border-gray-300 px-3 py-2 text-sm">کۆی پارەدان</th>
+              <th class="border border-gray-300 px-3 py-2 text-sm">ماوەی قەرز</th>
             </tr>
           </thead>
           <tbody id="customerSummaryList"></tbody>
@@ -123,8 +123,12 @@
 
   showSection('dashboard');
 
+  // فۆرماتکردنی ژمارە بە کوردی و دوو خشتەی کۆتایی
   function formatAmount(num) {
-    return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return new Intl.NumberFormat('ku-IQ', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(num);
   }
 
   function updateDashboard() {
@@ -145,118 +149,4 @@
     const remaining = totalLoan - totalPaid;
 
     document.getElementById('totalLoans').textContent = formatAmount(totalLoan);
-    document.getElementById('paidLoans').textContent = formatAmount(totalPaid);
-    document.getElementById('remainingLoans').textContent = formatAmount(remaining);
-  }
-
-  function renderLoanList() {
-    const tbody = document.getElementById('loanList');
-    tbody.innerHTML = '';
-    loans.forEach(loan => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td class="border border-gray-300 px-4 py-2">${loan.name}</td>
-        <td class="border border-gray-300 px-4 py-2">${formatAmount(loan.amount)}</td>
-        <td class="border border-gray-300 px-4 py-2">${loan.date}</td>
-        <td class="border border-gray-300 px-4 py-2">${loan.note}</td>
-      `;
-      tbody.appendChild(tr);
-    });
-  }
-
-  function renderCustomerSummary() {
-    const tbody = document.getElementById('customerSummaryList');
-    tbody.innerHTML = '';
-    const summary = {};
-
-    loans.forEach(loan => {
-      if (!summary[loan.name]) summary[loan.name] = { totalLoan: 0, paid: 0 };
-      summary[loan.name].totalLoan += loan.amount;
-    });
-    payments.forEach(pay => {
-      if (!summary[pay.name]) summary[pay.name] = { totalLoan: 0, paid: 0 };
-      summary[pay.name].paid += pay.amount;
-    });
-
-    for (const name in summary) {
-      const totalLoan = summary[name].totalLoan;
-      const paid = summary[name].paid;
-      const remaining = totalLoan - paid;
-
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td class="border border-gray-300 px-4 py-2">${name}</td>
-        <td class="border border-gray-300 px-4 py-2">${formatAmount(totalLoan)}</td>
-        <td class="border border-gray-300 px-4 py-2">${formatAmount(paid)}</td>
-        <td class="border border-gray-300 px-4 py-2">${formatAmount(remaining)}</td>
-      `;
-      tbody.appendChild(tr);
-    }
-  }
-
-  function applyDateFilter() {
-    updateDashboard();
-    renderLoanList();
-    renderCustomerSummary();
-  }
-
-  function clearDateFilter() {
-    document.getElementById('filterMonth').value = '';
-    updateDashboard();
-    renderLoanList();
-    renderCustomerSummary();
-  }
-
-  // زیادکردنی قەرز
-  document.getElementById('loanForm').addEventListener('submit', e => {
-    e.preventDefault();
-
-    const name = document.getElementById('name').value.trim();
-    const amount = parseFloat(document.getElementById('amount').value);
-    const date = document.getElementById('date').value;
-    const note = document.getElementById('note').value.trim();
-
-    if (!name || !date || isNaN(amount) || amount <= 0) {
-      alert('تکایە هەموو زانیاریەکان بە دروستی پڕ بکەوە');
-      return;
-    }
-
-    loans.push({ name, amount, date, note });
-    document.getElementById('loanForm').reset();
-
-    updateDashboard();
-    renderLoanList();
-    renderCustomerSummary();
-    showSection('dashboard');
-  });
-
-  // پارەدان
-  document.getElementById('paymentForm').addEventListener('submit', e => {
-    e.preventDefault();
-
-    const name = document.getElementById('payName').value.trim();
-    const amount = parseFloat(document.getElementById('payAmount').value);
-    const date = document.getElementById('payDate').value;
-    const note = document.getElementById('payNote').value.trim();
-
-    if (!name || !date || isNaN(amount) || amount <= 0) {
-      alert('تکایە هەموو زانیاریەکان بە دروستی پڕ بکەوە');
-      return;
-    }
-
-    payments.push({ name, amount, date, note });
-    document.getElementById('paymentForm').reset();
-
-    updateDashboard();
-    renderLoanList();
-    renderCustomerSummary();
-    showSection('dashboard');
-  });
-
-  // سەرەتای کار
-  updateDashboard();
-  renderLoanList();
-  renderCustomerSummary();
-</script>
-</body>
-</html>
+    document.getElement
