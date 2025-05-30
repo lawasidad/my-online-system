@@ -3,150 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>سیستەمی قەرز</title>
+  <title>داشبۆردی سیستەمی قەرز</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .hidden { display: none; }
-  </style>
 </head>
-<body class="bg-gray-100 font-sans min-h-screen flex">
-  <aside class="w-64 bg-white p-6 shadow-lg text-right">
-    <h1 class="text-2xl font-bold text-green-600 mb-6">سیستەمی قەرز</h1>
-    <nav class="flex flex-col gap-4">
-      <button onclick="showSection('dashboard')" class="text-right py-2 px-4 rounded hover:bg-green-100">🏠 پەڕەی سەرەکی</button>
-      <button onclick="showSection('addLoan')" class="text-right py-2 px-4 rounded hover:bg-green-100">➕ زیادکردنی قەرز</button>
-      <button onclick="showSection('loanList')" class="text-right py-2 px-4 rounded hover:bg-green-100">📋 لیستی قەرزەکان</button>
-      <button onclick="showSection('payment')" class="text-right py-2 px-4 rounded hover:bg-green-100">💵 پارەدان</button>
-      <button onclick="showSection('customerSummary')" class="text-right py-2 px-4 rounded hover:bg-green-100">📊 کورتەی کڕیار</button>
-    </nav>
-  </aside>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-4 font-sans">
+  <h1 class="text-3xl font-bold mb-6 text-green-600">داشبۆردی سیستەمی قەرز</h1>
 
-  <main class="flex-1 p-6 overflow-auto text-right">
-    <!-- پەڕەی سەرەکی -->
-    <section id="dashboardSection">
-      <h2 class="text-2xl font-semibold mb-4">پەڕەی سەرەکی</h2>
-      <div class="mb-6 flex gap-4 items-center justify-end flex-wrap">
-        <label for="filterMonth" class="text-gray-700">فلتەری مانگ:</label>
-        <input type="month" id="filterMonth" class="border border-gray-300 rounded p-2" />
-        <button onclick="applyDateFilter()" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">فلتەرکردن</button>
-        <button onclick="clearDateFilter()" class="bg-gray-300 text-black py-2 px-4 rounded hover:bg-gray-400">پاککردن</button>
+  <div class="w-full max-w-5xl bg-white rounded-lg shadow p-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+      <label for="filterMonth" class="text-gray-700 font-semibold">فلتەری مانگ:</label>
+      <input type="month" id="filterMonth" class="border border-gray-300 rounded p-2 max-w-xs" />
+      <div class="flex gap-2">
+        <button onclick="applyDateFilter()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">فلتەرکردن</button>
+        <button onclick="clearDateFilter()" class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400">پاککردن</button>
       </div>
+    </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-xl shadow text-center">
-          <p class="text-gray-600">کۆی قەرزەکان</p>
-          <p id="totalLoans" class="text-xl font-bold text-green-600">0.00</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow text-center">
-          <p class="text-gray-600">کۆی پارەدان</p>
-          <p id="paidLoans" class="text-xl font-bold text-blue-600">0.00</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow text-center">
-          <p class="text-gray-600">ماوەی قەرز</p>
-          <p id="remainingLoans" class="text-xl font-bold text-red-600">0.00</p>
-        </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+      <div class="bg-green-50 rounded-lg p-6 shadow">
+        <p class="text-gray-600 mb-2">کۆی قەرزەکان</p>
+        <p id="totalLoans" class="text-2xl font-bold text-green-600">0.00</p>
       </div>
-    </section>
-
-    <!-- زیادکردنی قەرز -->
-    <section id="addLoanSection" class="hidden mt-6">
-      <h2 class="text-2xl font-semibold mb-4">➕ زیادکردنی قەرز</h2>
-      <form id="loanForm" class="flex flex-col gap-4">
-        <input type="text" id="name" placeholder="ناوی کڕیار" class="border border-gray-300 rounded p-2" required />
-        <input type="number" step="0.01" min="0.01" id="amount" placeholder="بڕی قەرز" class="border border-gray-300 rounded p-2" required />
-        <input type="date" id="date" class="border border-gray-300 rounded p-2" required />
-        <textarea id="note" placeholder="تێبینی" class="border border-gray-300 rounded p-2"></textarea>
-        <button type="submit" class="bg-green-500 text-white py-2 rounded hover:bg-green-600">زیادکردن</button>
-      </form>
-    </section>
-
-    <!-- لیستی قەرزەکان -->
-    <section id="loanListSection" class="hidden mt-6">
-      <h2 class="text-2xl font-semibold mb-4">📋 لیستی قەرزەکان</h2>
-      <div class="overflow-x-auto">
-        <table class="w-full table-auto border-collapse border border-gray-300 text-right">
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="border border-gray-300 px-3 py-2 text-sm">ناو</th>
-              <th class="border border-gray-300 px-3 py-2 text-sm">بڕ</th>
-              <th class="border border-gray-300 px-3 py-2 text-sm">بەروار</th>
-              <th class="border border-gray-300 px-3 py-2 text-sm">تێبینی</th>
-            </tr>
-          </thead>
-          <tbody id="loanList"></tbody>
-        </table>
+      <div class="bg-blue-50 rounded-lg p-6 shadow">
+        <p class="text-gray-600 mb-2">کۆی پارەدان</p>
+        <p id="paidLoans" class="text-2xl font-bold text-blue-600">0.00</p>
       </div>
-    </section>
-
-    <!-- پارەدان -->
-    <section id="paymentSection" class="hidden mt-6">
-      <h2 class="text-2xl font-semibold mb-4">💵 پارەدان</h2>
-      <form id="paymentForm" class="flex flex-col gap-4">
-        <input type="text" id="payName" placeholder="ناوی کڕیار" class="border border-gray-300 rounded p-2" required />
-        <input type="number" step="0.01" min="0.01" id="payAmount" placeholder="بڕی پارەدان" class="border border-gray-300 rounded p-2" required />
-        <input type="date" id="payDate" class="border border-gray-300 rounded p-2" required />
-        <textarea id="payNote" placeholder="تێبینی" class="border border-gray-300 rounded p-2"></textarea>
-        <button type="submit" class="bg-blue-500 text-white py-2 rounded hover:bg-blue-600">ناردنی پارەدان</button>
-      </form>
-    </section>
-
-    <!-- کورتەی کڕیار -->
-    <section id="customerSummarySection" class="hidden mt-6">
-      <h2 class="text-2xl font-semibold mb-4">📊 کورتەی کڕیار</h2>
-      <div class="overflow-x-auto">
-        <table class="w-full table-auto border-collapse border border-gray-300 text-right">
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="border border-gray-300 px-3 py-2 text-sm">ناوی کڕیار</th>
-              <th class="border border-gray-300 px-3 py-2 text-sm">کۆی قەرز</th>
-              <th class="border border-gray-300 px-3 py-2 text-sm">کۆی پارەدان</th>
-              <th class="border border-gray-300 px-3 py-2 text-sm">ماوەی قەرز</th>
-            </tr>
-          </thead>
-          <tbody id="customerSummaryList"></tbody>
-        </table>
+      <div class="bg-red-50 rounded-lg p-6 shadow">
+        <p class="text-gray-600 mb-2">ماوەی قەرز</p>
+        <p id="remainingLoans" class="text-2xl font-bold text-red-600">0.00</p>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
 
 <script>
-  const loans = [];
-  const payments = [];
+  // نموونەی داتاکان بۆ داشبۆرد
+  const loans = [
+    { name: 'کڕیار ١', amount: 1000, date: '2025-05-10' },
+    { name: 'کڕیار ٢', amount: 500, date: '2025-05-15' },
+    { name: 'کڕیار ١', amount: 200, date: '2025-06-05' }
+  ];
+  const payments = [
+    { name: 'کڕیار ١', amount: 400, date: '2025-05-20' },
+    { name: 'کڕیار ٢', amount: 100, date: '2025-05-30' }
+  ];
 
-  const sections = ['dashboard', 'addLoan', 'loanList', 'payment', 'customerSummary'];
-  function showSection(name) {
-    sections.forEach(sec => {
-      document.getElementById(sec + 'Section').classList.add('hidden');
-    });
-    document.getElementById(name + 'Section').classList.remove('hidden');
-  }
-
-  showSection('dashboard');
-
-  // فۆرماتکردنی ژمارە بە کوردی و دوو خشتەی کۆتایی
   function formatAmount(num) {
-    return new Intl.NumberFormat('ku-IQ', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(num);
+    return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
   function updateDashboard() {
-    let filteredMonth = document.getElementById('filterMonth').value;
+    const filterMonth = document.getElementById('filterMonth').value;
 
     let filteredLoans = loans;
-    if (filteredMonth) {
-      filteredLoans = loans.filter(loan => loan.date.startsWith(filteredMonth));
-    }
-
     let filteredPayments = payments;
-    if (filteredMonth) {
-      filteredPayments = payments.filter(pay => pay.date.startsWith(filteredMonth));
+
+    if (filterMonth) {
+      filteredLoans = loans.filter(l => l.date.startsWith(filterMonth));
+      filteredPayments = payments.filter(p => p.date.startsWith(filterMonth));
     }
 
-    const totalLoan = filteredLoans.reduce((acc, loan) => acc + loan.amount, 0);
-    const totalPaid = filteredPayments.reduce((acc, pay) => acc + pay.amount, 0);
+    const totalLoan = filteredLoans.reduce((acc, l) => acc + l.amount, 0);
+    const totalPaid = filteredPayments.reduce((acc, p) => acc + p.amount, 0);
     const remaining = totalLoan - totalPaid;
 
     document.getElementById('totalLoans').textContent = formatAmount(totalLoan);
-    document.getElement
+    document.getElementById('paidLoans').textContent = formatAmount(totalPaid);
+    document.getElementById('remainingLoans').textContent = formatAmount(remaining);
+  }
+
+  function applyDateFilter() {
+    updateDashboard();
+  }
+
+  function clearDateFilter() {
+    document.getElementById('filterMonth').value = '';
+    updateDashboard();
+  }
+
+  // سەرەتا هەڵبژاردن و نوێکردنەوەی داشبۆرد
+  updateDashboard();
+</script>
+
+</body>
+</html>
