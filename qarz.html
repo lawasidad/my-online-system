@@ -1,70 +1,69 @@
 <!DOCTYPE html>
 <html lang="ku">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-gray-100 min-h-screen flex">
 
-  <div class="flex h-screen">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-white shadow-md p-4">
-      <h2 class="text-2xl font-bold mb-6">Dashboard</h2>
-      <nav class="space-y-2">
-        <button onclick="showSection('dashboard')" class="w-full text-left px-4 py-2 rounded hover:bg-gray-200">🏠 پەڕەی سەرەکی</button>
-        <button onclick="showSection('addLoan')" class="w-full text-left px-4 py-2 rounded hover:bg-gray-200">➕ زیادکردنی قەرز</button>
-        <button onclick="showSection('loanList')" class="w-full text-left px-4 py-2 rounded hover:bg-gray-200">📋 لیستی قەرزەکان</button>
-        <button onclick="showSection('payment')" class="w-full text-left px-4 py-2 rounded hover:bg-gray-200">💰 داواکارەکان</button>
-        <button onclick="showSection('customerSummary')" class="w-full text-left px-4 py-2 rounded hover:bg-gray-200">🧾 کۆبوونی گشتی</button>
-      </nav>
-    </aside>
+  <!-- Sidebar -->
+  <aside class="w-64 bg-white p-4 shadow-lg">
+    <h1 class="text-2xl font-bold mb-6">🏠 داشبۆرد</h1>
+    <ul class="space-y-2">
+      <li><button onclick="showSection('dashboard')" class="w-full text-left px-4 py-2 rounded hover:bg-gray-200">پەڕەی سەرەکی</button></li>
+      <li><button onclick="showSection('addLoan')" class="w-full text-left px-4 py-2 rounded hover:bg-gray-200">زیادکردنی قەرز</button></li>
+      <li><button onclick="showSection('loanList')" class="w-full text-left px-4 py-2 rounded hover:bg-gray-200">لیستی قەرزەکان</button></li>
+      <li><button onclick="showSection('payment')" class="w-full text-left px-4 py-2 rounded hover:bg-gray-200">داواکارەکان</button></li>
+      <li><button onclick="showSection('customerSummary')" class="w-full text-left px-4 py-2 rounded hover:bg-gray-200">کۆبوونی گشتی</button></li>
+    </ul>
+  </aside>
 
-    <!-- Main Content -->
-    <main class="flex-1 p-6 overflow-y-auto">
-      <!-- Dashboard Section -->
-      <section id="dashboard" class="">
-        <h1 class="text-3xl font-bold mb-4">🏠 پەڕەی سەرەکی</h1>
-        <p>ئەمە ناوەڕۆکی پەڕەی سەرەکییە.</p>
-      </section>
+  <!-- Main Content -->
+  <main class="flex-1 p-6 overflow-y-auto space-y-6">
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="">
+      <h2 class="text-2xl font-bold mb-4">پەڕەی سەرەکی</h2>
+      <p>بەخێربێیت بۆ سیستەمەکەت.</p>
+    </section>
 
-      <!-- Add Loan Section -->
-      <section id="addLoan" class="hidden">
-        <h1 class="text-3xl font-bold mb-4">➕ زیادکردنی قەرز</h1>
-        <p>ئەمە ناوەڕۆکی زیادکردنی قەرزە.</p>
-      </section>
+    <!-- Add Loan Section -->
+    <section id="addLoan" class="hidden">
+      <h2 class="text-2xl font-bold mb-4">زیادکردنی قەرز</h2>
+      <p>فرمی زیادکردنی قەرز لێرە دەبێت.</p>
+    </section>
 
-      <!-- Loan List Section -->
-      <section id="loanList" class="hidden">
-        <h1 class="text-3xl font-bold mb-4">📋 لیستی قەرزەکان</h1>
-        <p>ئەمە لیستی قەرزەکانە.</p>
-      </section>
+    <!-- Loan List Section -->
+    <section id="loanList" class="hidden">
+      <h2 class="text-2xl font-bold mb-4">لیستی قەرزەکان</h2>
+      <p>لیستی قەرزەکان لێرەیە.</p>
+    </section>
 
-      <!-- Payment Section -->
-      <section id="payment" class="hidden">
-        <h1 class="text-3xl font-bold mb-4">💰 داواکارەکان</h1>
-        <p>ئەمە ناوەڕۆکی داواکارییەکانە.</p>
-      </section>
+    <!-- Payment Section -->
+    <section id="payment" class="hidden">
+      <h2 class="text-2xl font-bold mb-4">داواکارەکان</h2>
+      <p>زانیاری داواکارییەکان لێرەیە.</p>
+    </section>
 
-      <!-- Customer Summary Section -->
-      <section id="customerSummary" class="hidden">
-        <h1 class="text-3xl font-bold mb-4">🧾 کۆبوونی گشتی</h1>
-        <p>ئەمە ناوەڕۆکی کۆبوونی گشتییە.</p>
-      </section>
-    </main>
-  </div>
+    <!-- Customer Summary Section -->
+    <section id="customerSummary" class="hidden">
+      <h2 class="text-2xl font-bold mb-4">کۆبوونی گشتی</h2>
+      <p>کۆبوونی گشتییەکان لێرەیە.</p>
+    </section>
+  </main>
 
-  <!-- JavaScript Section -->
+  <!-- JavaScript -->
   <script>
     const sections = ['dashboard', 'addLoan', 'loanList', 'payment', 'customerSummary'];
 
-    function showSection(name) {
+    function showSection(sectionId) {
       sections.forEach(id => {
         document.getElementById(id).classList.add('hidden');
       });
-      document.getElementById(name).classList.remove('hidden');
+      document.getElementById(sectionId).classList.remove('hidden');
     }
   </script>
+
 </body>
 </html>
