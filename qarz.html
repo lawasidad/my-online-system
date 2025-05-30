@@ -1,34 +1,70 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ku">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>سیستەمی قەرز</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .hidden { display: none; }
-  </style>
 </head>
-<body class="bg-gray-100 font-sans min-h-screen flex flex-col md:flex-row">
-  <aside class="w-full md:w-64 bg-white p-4 shadow-md text-right">
-    <h1 class="text-2xl font-bold text-green-600 mb-4 text-center md:text-right">سیستەمی قەرز</h1>
-    <nav class="flex flex-col gap-2">
-      <button onclick="showSection('dashboard')" class="py-2 px-3 rounded hover:bg-green-100 text-right">🏠 پەڕەی سەرەکی</button>
-      <button onclick="showSection('addLoan')" class="py-2 px-3 rounded hover:bg-green-100 text-right">➕ زیادکردنی قەرز</button>
-      <button onclick="showSection('loanList')" class="py-2 px-3 rounded hover:bg-green-100 text-right">📋 لیستی قەرزەکان</button>
-      <button onclick="showSection('payment')" class="py-2 px-3 rounded hover:bg-green-100 text-right">💵 پارەدان</button>
-      <button onclick="showSection('customerSummary')" class="py-2 px-3 rounded hover:bg-green-100 text-right">📊 کورتەی کڕیار</button>
-    </nav>
-  </aside>
+<body class="bg-gray-100 text-gray-800">
 
-  <main class="flex-1 p-4 overflow-auto text-right">
-    <!-- Sections Here (no changes yet) -->
-    <!-- Will adjust each section later if needed for mobile layout -->
-  </main>
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-md p-4">
+      <h2 class="text-2xl font-bold mb-6">Dashboard</h2>
+      <nav class="space-y-2">
+        <button onclick="showSection('dashboard')" class="w-full text-left px-4 py-2 rounded hover:bg-gray-200">🏠 پەڕەی سەرەکی</button>
+        <button onclick="showSection('addLoan')" class="w-full text-left px-4 py-2 rounded hover:bg-gray-200">➕ زیادکردنی قەرز</button>
+        <button onclick="showSection('loanList')" class="w-full text-left px-4 py-2 rounded hover:bg-gray-200">📋 لیستی قەرزەکان</button>
+        <button onclick="showSection('payment')" class="w-full text-left px-4 py-2 rounded hover:bg-gray-200">💰 داواکارەکان</button>
+        <button onclick="showSection('customerSummary')" class="w-full text-left px-4 py-2 rounded hover:bg-gray-200">🧾 کۆبوونی گشتی</button>
+      </nav>
+    </aside>
 
-  <!-- Existing Script Code Below -->
+    <!-- Main Content -->
+    <main class="flex-1 p-6 overflow-y-auto">
+      <!-- Dashboard Section -->
+      <section id="dashboard" class="">
+        <h1 class="text-3xl font-bold mb-4">🏠 پەڕەی سەرەکی</h1>
+        <p>ئەمە ناوەڕۆکی پەڕەی سەرەکییە.</p>
+      </section>
+
+      <!-- Add Loan Section -->
+      <section id="addLoan" class="hidden">
+        <h1 class="text-3xl font-bold mb-4">➕ زیادکردنی قەرز</h1>
+        <p>ئەمە ناوەڕۆکی زیادکردنی قەرزە.</p>
+      </section>
+
+      <!-- Loan List Section -->
+      <section id="loanList" class="hidden">
+        <h1 class="text-3xl font-bold mb-4">📋 لیستی قەرزەکان</h1>
+        <p>ئەمە لیستی قەرزەکانە.</p>
+      </section>
+
+      <!-- Payment Section -->
+      <section id="payment" class="hidden">
+        <h1 class="text-3xl font-bold mb-4">💰 داواکارەکان</h1>
+        <p>ئەمە ناوەڕۆکی داواکارییەکانە.</p>
+      </section>
+
+      <!-- Customer Summary Section -->
+      <section id="customerSummary" class="hidden">
+        <h1 class="text-3xl font-bold mb-4">🧾 کۆبوونی گشتی</h1>
+        <p>ئەمە ناوەڕۆکی کۆبوونی گشتییە.</p>
+      </section>
+    </main>
+  </div>
+
+  <!-- JavaScript Section -->
   <script>
-    // ... same JavaScript logic from your existing code
+    const sections = ['dashboard', 'addLoan', 'loanList', 'payment', 'customerSummary'];
+
+    function showSection(name) {
+      sections.forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(name).classList.remove('hidden');
+    }
   </script>
 </body>
 </html>
