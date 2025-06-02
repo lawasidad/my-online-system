@@ -1,104 +1,144 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="ku">
 <head>
   <meta charset="UTF-8">
-  <title>سیستەمی قەرز</title>
+  <title>داشبۆردی قەرز</title>
   <style>
     body {
-      font-family: Tahoma;
-      background: #f1f1f1;
+      font-family: 'Segoe UI', Tahoma;
+      direction: rtl;
+      background: #f4f4f4;
       padding: 20px;
     }
-    .container {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 100%;
-      max-width: 600px;
+    .dashboard {
+      max-width: 1000px;
       margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    input, button {
-      padding: 10px;
-      margin: 5px 0;
-      width: 100%;
-      font-size: 16px;
+    h1 {
+      text-align: center;
+      color: #5d3f6a;
     }
-    ul {
-      list-style: none;
-      padding: 0;
+    form, table {
+      margin: 20px 0;
     }
-    li {
-      background: #e6f7ff;
-      margin: 5px 0;
+    input, button, select {
       padding: 10px;
+      margin: 5px;
+      border: 1px solid #ccc;
       border-radius: 5px;
     }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
     .actions button {
-      margin-left: 5px;
+      margin: 0 2px;
     }
   </style>
 </head>
 <body>
+  <div class="dashboard">
+    <h1>سیستەمی قەرز</h1>
 
-<div class="container">
-  <h2>زیادکردنی قەرز</h2>
-  <form id="debtForm">
-    <input type="text" id="name" placeholder="ناوی قەرزدەر" required />
-    <input type="number" id="amount" placeholder="بڕی قەرز" required />
-    <button type="submit">💾 زیادکردن</button>
-  </form>
+    <!-- 📥 فۆڕمی زیادکردن قەرز -->
+    <form id="debtForm">
+      <input type="text" id="name" placeholder="ناوی کریار" required>
+      <input type="number" id="amount" placeholder="بڕی قەرز" required>
+      <input type="date" id="date" required>
+      <button type="submit">➕ زیادکردن قەرز</button>
+    </form>
 
-  <h3>لیستی قەرزەکان</h3>
-  <ul id="debtList"></ul>
-</div>
+    <!-- 📋 خشتەی قەرزەکان -->
+    <table id="debtTable">
+      <thead>
+        <tr>
+          <th>ناو</th>
+          <th>بڕ</th>
+          <th>بەروار</th>
+          <th>کردارەکان</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- قەرزەکان لێرە دابنرێن -->
+      </tbody>
+    </table>
 
-<script>
-  const form = document.getElementById("debtForm");
-  const debtList = document.getElementById("debtList");
-  let debts = JSON.parse(localStorage.getItem("debts")) || [];
+    <!-- 🧾 ناردن بۆ PDF -->
+    <button onclick="downloadPDF()">📄 دابه‌زاندنی PDF</button>
+  </div>
 
-  function render() {
-    debtList.innerHTML = "";
-    debts.forEach((debt, index) => {
-      const li = document.createElement("li");
-      li.innerHTML = `
-        ${debt.name} - ${debt.amount} دینار
-        <div class="actions">
-          <button onclick="editDebt(${index})">✏️ گۆڕین</button>
-          <button onclick="deleteDebt(${index})">🗑️ سڕینەوە</button>
-        </div>
-      `;
-      debtList.appendChild(li);
-    });
-    localStorage.setItem("debts", JSON.stringify(debts));
-  }
+  <script>
+    const form = document.getElementById("debtForm");
+    const table = document.getElementById("debtTable").querySelector("tbody");
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const name = document.getElementById("name").value;
-    const amount = document.getElementById("amount").value;
-    debts.push({ name, amount });
-    form.reset();
-    render();
-  });
+    const debts = [];
 
-  function deleteDebt(index) {
-    debts.splice(index, 1);
-    render();
-  }
+    form.onsubmit = e => {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const amount = document.getElementById("amount").value;
+      const date = document.getElementById("date").value;
+      debts.push({ name, amount, date });
+      renderDebts();
+      form.reset();
+    };
 
-  function editDebt(index) {
-    const newName = prompt("ناوی نوێ:", debts[index].name);
-    const newAmount = prompt("بڕی نوێ:", debts[index].amount);
-    if (newName && newAmount) {
-      debts[index] = { name: newName, amount: newAmount };
-      render();
+    function renderDebts() {
+      table.innerHTML = "";
+      debts.forEach((debt, index) => {
+        table.innerHTML += `
+          <tr>
+            <td>${debt.name}</td>
+            <td>${debt.amount}</td>
+            <td>${debt.date}</td>
+            <td class="actions">
+              <button onclick="editDebt(${index})">✏️</button>
+              <button onclick="deleteDebt(${index})">🗑️</button>
+              <button onclick="payDebt(${index})">💰</button>
+            </td>
+          </tr>
+        `;
+      });
     }
-  }
 
-  render();
-</script>
+    function deleteDebt(index) {
+      if (confirm("دڵنیایت لە سڕینەوە؟")) {
+        debts.splice(index, 1);
+        renderDebts();
+      }
+    }
 
+    function editDebt(index) {
+      const debt = debts[index];
+      const name = prompt("ناوی نوێ:", debt.name);
+      const amount = prompt("بڕی نوێ:", debt.amount);
+      const date = prompt("بەرواری نوێ:", debt.date);
+      if (name && amount && date) {
+        debts[index] = { name, amount, date };
+        renderDebts();
+      }
+    }
+
+    function payDebt(index) {
+      const paid = prompt("بڕی پارەی گەڕاوە:", 0);
+      if (paid) {
+        debts[index].amount -= parseFloat(paid);
+        renderDebts();
+      }
+    }
+
+    function downloadPDF() {
+      alert("📄 ناردنی PDF کار ناکات لەم وێبە، بەکاربهێنە jsPDF لە پروژه‌ی ڕاستەقینە.");
+    }
+  </script>
 </body>
 </html>
