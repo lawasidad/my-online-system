@@ -1,378 +1,103 @@
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>داشبۆردی قەرز دۆی قەندیل  - ریسپۆنسیڤ</title>
-<style>
-  * {
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  body {
-    margin: 0; padding: 0;
-    background: linear-gradient(135deg, #71b7e6, #9b59b6);
-    color: #222;
-    direction: rtl;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 20px 15px;
-  }
-  .container {
-    background: #fff;
-    border-radius: 20px;
-    width: 900px;
-    max-width: 100%;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-    padding: 40px 30px;
-  }
-  h1 {
-    text-align: center;
-    font-size: 2.4rem;
-    margin-bottom: 25px;
-    color: #5d3f6a;
-    font-weight: 900;
-    letter-spacing: 2px;
-  }
-
-  form {
-    display: flex;
-    gap: 25px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-  }
-  form > div {
-    flex: 1 1 30%;
-    display: flex;
-    flex-direction: column;
-  }
-  label {
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: #5d3f6a;
-    font-size: 1rem;
-    letter-spacing: 0.7px;
-  }
-  input[type="text"],
-  input[type="number"],
-  input[type="date"] {
-    padding: 12px 15px;
-    font-size: 1.05rem;
-    border-radius: 10px;
-    border: 2px solid #ccc;
-    transition: 0.3s;
-    outline: none;
-  }
-  input[type="text"]:focus,
-  input[type="number"]:focus,
-  input[type="date"]:focus {
-    border-color: #9b59b6;
-    box-shadow: 0 0 10px #9b59b6aa;
-  }
-  button {
-    background: #9b59b6;
-    border: none;
-    border-radius: 15px;
-    color: white;
-    font-size: 1.3rem;
-    padding: 15px 0;
-    cursor: pointer;
-    flex: 1 1 100%;
-    font-weight: 800;
-    letter-spacing: 1.2px;
-    transition: background 0.3s ease;
-  }
-  button:hover {
-    background: #71368a;
-  }
-
-  .error {
-    color: #e74c3c;
-    font-weight: 600;
-    font-size: 0.85rem;
-    margin-top: 6px;
-    display: none;
-  }
-
-  .dashboard {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 50px;
-    justify-content: center;
-  }
-  .card {
-    flex: 1 1 25%;
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-    border-radius: 18px;
-    padding: 35px 25px;
-    box-shadow: 0 6px 20px #7b6da788;
-    text-align: center;
-    color: #5d3f6a;
-    font-weight: 700;
-    letter-spacing: 0.7px;
-    transition: transform 0.3s ease;
-  }
-  .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 35px #9b59b6aa;
-  }
-  .card.red {
-    background: linear-gradient(135deg, #ffe6e6, #ffb3b3);
-    color: #b83030;
-  }
-  .card.red p.title {
-    color: #b83030;
-  }
-  .card.red p.amount {
-    color: #9b1c1c;
-  }
-  .card.blue {
-    background: linear-gradient(135deg, #e0f7ff, #9bd1ff);
-    color: #0f4c81;
-  }
-  .card.blue p.title {
-    color: #0f4c81;
-  }
-  .card.blue p.amount {
-    color: #064a8f;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 6px 20px #7b6da788;
-  }
-  thead {
-    background: #9b59b6;
-    color: white;
-  }
-  th, td {
-    padding: 15px 20px;
-    text-align: center;
-    word-break: break-word;
-  }
-  tbody tr:nth-child(even) {
-    background: #f5f5f5;
-  }
-  tbody tr:hover {
-    background: #dcd0f7;
-  }
-  th {
-    font-weight: 700;
-    letter-spacing: 1.2px;
-  }
-  td {
-    font-weight: 600;
-    color: #5d3f6a;
-  }
-
-  /* ریسپۆنسیڤ */
-  @media (max-width: 1024px) {
-    .container {
-      padding: 30px 20px;
-      width: 100%;
-    }
-    form > div {
-      flex: 1 1 45%;
-    }
-    .dashboard {
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .card {
-      flex: 1 1 45%;
-      margin-bottom: 20px;
-    }
-  }
-
-  @media (max-width: 600px) {
+  <meta charset="UTF-8">
+  <title>سیستەمی قەرز</title>
+  <style>
     body {
-      padding: 15px 10px;
+      font-family: Tahoma;
+      background: #f1f1f1;
+      padding: 20px;
     }
-    form {
-      flex-direction: column;
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    form > div {
-      flex: 1 1 100%;
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      font-size: 16px;
     }
-    button {
-      font-size: 1.15rem;
-      padding: 13px 0;
+    ul {
+      list-style: none;
+      padding: 0;
     }
-    .dashboard {
-      flex-direction: column;
-      gap: 15px;
+    li {
+      background: #e6f7ff;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
     }
-    .card {
-      flex: 1 1 100%;
-      margin-bottom: 15px;
+    .actions button {
+      margin-left: 5px;
     }
-    table {
-      font-size: 0.85rem;
-    }
-    th, td {
-      padding: 10px 12px;
-    }
-  }
-</style>
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>داشبۆردی قەر دۆی قەندیل ز</h1>
 
-    <form id="loanForm" novalidate>
-      <div>
-        <label for="clientName">ناوی کریار</label>
-        <input type="text" id="clientName" name="clientName" placeholder="ناوی کریار بنووسە" required />
-        <div class="error" id="nameError">ناوی کریار دابنێ</div>
-      </div>
+<div class="container">
+  <h2>زیادکردنی قەرز</h2>
+  <form id="debtForm">
+    <input type="text" id="name" placeholder="ناوی قەرزدەر" required />
+    <input type="number" id="amount" placeholder="بڕی قەرز" required />
+    <button type="submit">💾 زیادکردن</button>
+  </form>
 
-      <div>
-        <label for="loanAmount">بڕی قەرز (پارە)</label>
-        <input type="number" id="loanAmount" name="loanAmount" placeholder="بڕی قەرز بنووسە" min="0.01" step="0.01" required />
-        <div class="error" id="amountError">بڕی دروست دابنێ</div>
-      </div>
-
-      <div>
-        <label for="loanDate">بەرواری قەرز</label>
-        <input type="date" id="loanDate" name="loanDate" required />
-        <div class="error" id="dateError">بەروار دابنێ</div>
-      </div>
-
-      <button type="submit">زیادکردن</button>
-    </form>
-
-    <div class="dashboard">
-      <div class="card">
-        <p class="title">کۆی قەرزەکان</p>
-        <p class="amount" id="totalLoans">0.00</p>
-      </div>
-      <div class="card blue">
-        <p class="title">کۆی پارەدان</p>
-        <p class="amount" id="paidLoans">0.00</p>
-      </div>
-      <div class="card red">
-        <p class="title">ماوەی قەرز</p>
-        <p class="amount" id="remainingLoans">0.00</p>
-      </div>
-    </div>
-
-    <table id="loansTable">
-      <thead>
-        <tr>
-          <th>ناوی کریار</th>
-          <th>بڕی قەرز</th>
-          <th>بەروار</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-  </div>
+  <h3>لیستی قەرزەکان</h3>
+  <ul id="debtList"></ul>
+</div>
 
 <script>
-  const loans = [
-    { name: 'کڕیار ١', amount: 1000, date: '2025-05-10' },
-    { name: 'کڕیار ٢', amount: 500, date: '2025-05-15' },
-    { name: 'کڕیار ١', amount: 200, date: '2025-06-05' }
-  ];
-  const payments = [
-    { name: 'کڕیار ١', amount: 400, date: '2025-05-20' },
-    { name: 'کڕیار ٢', amount: 100, date: '2025-05-30' }
-  ];
+  const form = document.getElementById("debtForm");
+  const debtList = document.getElementById("debtList");
+  let debts = JSON.parse(localStorage.getItem("debts")) || [];
 
-  const totalLoansEl = document.getElementById('totalLoans');
-  const paidLoansEl = document.getElementById('paidLoans');
-  const remainingLoansEl = document.getElementById('remainingLoans');
-  const loansTableBody = document.querySelector('#loansTable tbody');
-
-  const form = document.getElementById('loanForm');
-  const nameInput = document.getElementById('clientName');
-  const amountInput = document.getElementById('loanAmount');
-  const dateInput = document.getElementById('loanDate');
-
-  const nameError = document.getElementById('nameError');
-  const amountError = document.getElementById('amountError');
-  const dateError = document.getElementById('dateError');
-
-  function formatAmount(num) {
-    return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  }
-
-  function updateDashboard() {
-    const totalLoan = loans.reduce((acc, l) => acc + l.amount, 0);
-    const totalPaid = payments.reduce((acc, p) => acc + p.amount, 0);
-    const remaining = totalLoan - totalPaid;
-
-    totalLoansEl.textContent = formatAmount(totalLoan);
-    paidLoansEl.textContent = formatAmount(totalPaid);
-    remainingLoansEl.textContent = formatAmount(remaining);
-  }
-
-  function updateLoansTable() {
-    loansTableBody.innerHTML = '';
-    loans.forEach(({ name, amount, date }) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${name}</td>
-        <td>${formatAmount(amount)}</td>
-        <td>${date}</td>
+  function render() {
+    debtList.innerHTML = "";
+    debts.forEach((debt, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        ${debt.name} - ${debt.amount} دینار
+        <div class="actions">
+          <button onclick="editDebt(${index})">✏️ گۆڕین</button>
+          <button onclick="deleteDebt(${index})">🗑️ سڕینەوە</button>
+        </div>
       `;
-      loansTableBody.appendChild(tr);
+      debtList.appendChild(li);
     });
+    localStorage.setItem("debts", JSON.stringify(debts));
   }
 
-  function validateForm() {
-    let valid = true;
-
-    if (!nameInput.value.trim()) {
-      nameError.style.display = 'block';
-      valid = false;
-    } else {
-      nameError.style.display = 'none';
-    }
-
-    const amountVal = parseFloat(amountInput.value);
-    if (isNaN(amountVal) || amountVal <= 0) {
-      amountError.style.display = 'block';
-      valid = false;
-    } else {
-      amountError.style.display = 'none';
-    }
-
-    if (!dateInput.value) {
-      dateError.style.display = 'block';
-      valid = false;
-    } else {
-      dateError.style.display = 'none';
-    }
-
-    return valid;
-  }
-
-  form.addEventListener('submit', (e) => {
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
-
-    if (!validateForm()) return;
-
-    loans.push({
-      name: nameInput.value.trim(),
-      amount: parseFloat(amountInput.value),
-      date: dateInput.value
-    });
-
+    const name = document.getElementById("name").value;
+    const amount = document.getElementById("amount").value;
+    debts.push({ name, amount });
     form.reset();
-    updateDashboard();
-    updateLoansTable();
-    alert('قەرز بەسەرکەوتوویی زیادکرا!');
+    render();
   });
 
-  updateDashboard();
-  updateLoansTable();
+  function deleteDebt(index) {
+    debts.splice(index, 1);
+    render();
+  }
+
+  function editDebt(index) {
+    const newName = prompt("ناوی نوێ:", debts[index].name);
+    const newAmount = prompt("بڕی نوێ:", debts[index].amount);
+    if (newName && newAmount) {
+      debts[index] = { name: newName, amount: newAmount };
+      render();
+    }
+  }
+
+  render();
 </script>
 
 </body>
