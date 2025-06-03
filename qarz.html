@@ -4,109 +4,175 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>داشبۆردی قەرز</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
   <style>
     body {
-      background-color: #f8f9fa;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
     }
-    .dashboard {
-      max-width: 1200px;
+    header {
+      background: #333;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .container {
+      max-width: 900px;
       margin: auto;
-      padding: 20px;
+      padding: 1rem;
     }
-    .card {
-      margin-bottom: 20px;
+    h2 {
+      margin-top: 2rem;
+      color: #444;
     }
-    textarea {
-      resize: none;
+    form {
+      background: white;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #218838;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      table, form {
+        font-size: 14px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="dashboard">
-    <h2 class="text-center mb-4">📊 داشبۆردی بەڕێوەبردنی قەرز</h2>
 
-    <div class="row g-3">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">➕ زیادکردنی قەرز</div>
-          <div class="card-body">
-            <form id="addDebtForm">
-              <div class="mb-3">
-                <label for="customerName" class="form-label">ناوی کریار</label>
-                <input type="text" class="form-control" id="customerName" required>
-              </div>
-              <div class="mb-3">
-                <label for="debtAmount" class="form-label">بڕی قەرز</label>
-                <input type="number" class="form-control" id="debtAmount" required>
-              </div>
-              <div class="mb-3">
-                <label for="debtNote" class="form-label">تێبینی</label>
-                <textarea class="form-control" id="debtNote" rows="2"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">زیادکردن</button>
-            </form>
-          </div>
-        </div>
-      </div>
+<header>
+  <h1>📋 داشبۆردی قەرز</h1>
+</header>
 
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">💰 گەڕاندنەوەی قەرز</div>
-          <div class="card-body">
-            <form id="payDebtForm">
-              <div class="mb-3">
-                <label for="payCustomer" class="form-label">ناوی کریار</label>
-                <input type="text" class="form-control" id="payCustomer" required>
-              </div>
-              <div class="mb-3">
-                <label for="payAmount" class="form-label">بڕی پارە</label>
-                <input type="number" class="form-control" id="payAmount" required>
-              </div>
-              <button type="submit" class="btn btn-success">پارەدان</button>
-            </form>
-          </div>
-        </div>
-      </div>
+<div class="container">
 
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">📋 کەشفی حساب</div>
-          <div class="card-body">
-            <form id="searchForm" class="row g-2 mb-3">
-              <div class="col-md-6">
-                <input type="text" class="form-control" id="searchCustomer" placeholder="گەڕان بۆ ناوی کریار">
-              </div>
-              <div class="col-md-6">
-                <button type="submit" class="btn btn-info w-100">گەڕان</button>
-              </div>
-            </form>
-            <div id="accountStatement">
-              <p class="text-muted">هیچ زانیارییەک نییە، تکایە ناوێک بنووسە.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- زیادکردنی قەرز -->
+  <h2>➕ زیادکردنی قەرز</h2>
+  <form id="addDebtForm">
+    <input type="text" id="customer" placeholder="ناوی قەرزداری" required />
+    <input type="number" id="amount" placeholder="بڕی قەرز" required />
+    <input type="date" id="date" required />
+    <input type="text" id="details" placeholder="وردەکاری (هەڵبژێری)" />
+    <button type="submit">زیادکردن</button>
+  </form>
 
-    </div>
-  </div>
+  <!-- گەڕاندنەوەی قەرز -->
+  <h2>↩️ گەڕاندنەوەی قەرز</h2>
+  <form id="returnDebtForm">
+    <input type="text" id="returnCustomer" placeholder="ناوی قەرزداری" required />
+    <input type="number" id="returnAmount" placeholder="بڕی گەڕاوە" required />
+    <input type="date" id="returnDate" required />
+    <button type="submit">تۆمارکردنی گەڕاندنەوە</button>
+  </form>
 
-  <script>
-    document.getElementById('addDebtForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('قەرز زیاد کرا!');
+  <!-- کەشفی قەرزدار -->
+  <h2>📊 کەشفی قەرزدار</h2>
+  <input type="text" id="searchCustomer" placeholder="گەڕان بە ناو..." oninput="searchDebt()" />
+
+  <!-- لیستی قەرزەکان -->
+  <h2>📄 لیستی قەرزەکان</h2>
+  <table id="debtTable">
+    <thead>
+      <tr>
+        <th>ناو</th>
+        <th>بڕ</th>
+        <th>بەروار</th>
+        <th>جۆر</th>
+        <th>وردەکاری</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+</div>
+
+<script>
+  const debtTableBody = document.querySelector("#debtTable tbody");
+  let debtList = [];
+
+  function renderTable() {
+    debtTableBody.innerHTML = "";
+    debtList.forEach(entry => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${entry.name}</td>
+        <td>${entry.amount}</td>
+        <td>${entry.date}</td>
+        <td>${entry.type}</td>
+        <td>${entry.details || "-"}</td>
+      `;
+      debtTableBody.appendChild(row);
     });
+  }
 
-    document.getElementById('payDebtForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('پارەدان سەرکەوتوو بوو!');
-    });
+  document.getElementById("addDebtForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const name = document.getElementById("customer").value;
+    const amount = parseFloat(document.getElementById("amount").value);
+    const date = document.getElementById("date").value;
+    const details = document.getElementById("details").value;
 
-    document.getElementById('searchForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = document.getElementById('searchCustomer').value;
-      document.getElementById('accountStatement').innerHTML = `<div class='alert alert-light'>کەشفی حساب بۆ <strong>${name}</strong> پیشان دەدرێت لێرە.</div>`;
+    debtList.push({ name, amount, date, type: "قەرز", details });
+    renderTable();
+    e.target.reset();
+  });
+
+  document.getElementById("returnDebtForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const name = document.getElementById("returnCustomer").value;
+    const amount = parseFloat(document.getElementById("returnAmount").value);
+    const date = document.getElementById("returnDate").value;
+
+    debtList.push({ name, amount: -amount, date, type: "گەڕاوە", details: "" });
+    renderTable();
+    e.target.reset();
+  });
+
+  function searchDebt() {
+    const searchValue = document.getElementById("searchCustomer").value.toLowerCase();
+    const filtered = debtList.filter(entry => entry.name.toLowerCase().includes(searchValue));
+    debtTableBody.innerHTML = "";
+    filtered.forEach(entry => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${entry.name}</td>
+        <td>${entry.amount}</td>
+        <td>${entry.date}</td>
+        <td>${entry.type}</td>
+        <td>${entry.details || "-"}</td>
+      `;
+      debtTableBody.appendChild(row);
     });
-  </script>
+  }
+</script>
+
 </body>
 </html>
