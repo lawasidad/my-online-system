@@ -1,96 +1,46 @@
 <!DOCTYPE html>
 <html lang="ku">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>داشبۆردی SalesOn</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f6f8;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-    header {
-      background-color: #007bff;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .dashboard {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      padding: 20px;
-      gap: 20px;
-    }
-    .card {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      padding: 20px;
-      flex: 1 1 250px;
-      max-width: 300px;
-      text-align: center;
-    }
-    .card h2 {
-      margin: 0;
-      font-size: 36px;
-      color: #007bff;
-    }
-    .card p {
-      margin: 8px 0 0;
-      font-size: 16px;
-      color: #555;
-    }
-    .sales-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 30px;
-    }
-    .sales-table th, .sales-table td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: center;
-    }
-    .sales-table th {
-      background-color: #007bff;
-      color: white;
-    }
-    @media (max-width: 600px) {
-      .dashboard {
-        flex-direction: column;
-        align-items: center;
-      }
-      .card {
-        max-width: 90%;
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>داشبۆردی SalesOn</title>
+<style>
+  body { font-family: Arial, sans-serif; margin:0; background:#f5f5f5; }
+  header { background:#007bff; color:#fff; padding:20px; text-align:center; font-size:24px; }
+  .container { max-width:1200px; margin:20px auto; padding:0 20px; }
+  .stats { display:flex; justify-content:space-around; margin-bottom:30px; }
+  .card { background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1); width:30%; text-align:center; }
+  .card h2 { margin:0 0 10px; font-size:32px; color:#007bff; }
+  table { width:100%; border-collapse: collapse; background:#fff; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+  th, td { padding:12px; border-bottom:1px solid #ddd; text-align:center; }
+  th { background:#007bff; color:#fff; }
+  @media (max-width:768px) {
+    .stats { flex-direction:column; gap:20px; }
+    .card { width:100%; }
+  }
+</style>
 </head>
 <body>
 
-  <header>داشبۆردی SalesOn</header>
+<header>داشبۆردی SalesOn</header>
 
-  <div class="dashboard">
+<div class="container">
+  <div class="stats">
     <div class="card">
-      <h2>150</h2>
-      <p>کڕیارە تایبەتەکان</p>
+      <h2 id="totalCustomers">150</h2>
+      <p>کڕیارەکان</p>
     </div>
     <div class="card">
-      <h2>320</h2>
-      <p>فرۆشتنی کۆی</p>
+      <h2 id="totalSales">320</h2>
+      <p>ژمارەی فرۆشتن</p>
     </div>
     <div class="card">
-      <h2>12,450 $</h2>
+      <h2 id="totalRevenue">12,450 $</h2>
       <p>کۆی دارایی</p>
     </div>
   </div>
 
-  <table class="sales-table">
+  <table>
     <thead>
       <tr>
         <th>کڕیار</th>
@@ -100,30 +50,34 @@
         <th>ڕێکەوت</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>عەلی</td>
-        <td>مۆبایل</td>
-        <td>3</td>
-        <td>1200 $</td>
-        <td>2025-06-01</td>
-      </tr>
-      <tr>
-        <td>حسین</td>
-        <td>کۆمپیوته‌ر</td>
-        <td>1</td>
-        <td>2300 $</td>
-        <td>2025-06-02</td>
-      </tr>
-      <tr>
-        <td>نەجم</td>
-        <td>ماوە</td>
-        <td>5</td>
-        <td>550 $</td>
-        <td>2025-06-03</td>
-      </tr>
+    <tbody id="salesTableBody">
+      <!-- داتاکان لێرە دەتوانرێن زیاد بکرێن بە JS -->
     </tbody>
   </table>
+</div>
+
+<script>
+  // نموونەی داتای فرۆشتن
+  const salesData = [
+    { customer: "عەلی", product: "مۆبایل", quantity: 3, price: 1200, date: "2025-06-01" },
+    { customer: "حسین", product: "کۆمپیوته‌ر", quantity: 1, price: 2300, date: "2025-06-02" },
+    { customer: "نەجم", product: "ماوە", quantity: 5, price: 550, date: "2025-06-03" }
+  ];
+
+  const tbody = document.getElementById('salesTableBody');
+
+  salesData.forEach(sale => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${sale.customer}</td>
+      <td>${sale.product}</td>
+      <td>${sale.quantity}</td>
+      <td>${sale.price} $</td>
+      <td>${sale.date}</td>
+    `;
+    tbody.appendChild(row);
+  });
+</script>
 
 </body>
 </html>
