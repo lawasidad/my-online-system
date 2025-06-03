@@ -1,134 +1,166 @@
 <!DOCTYPE html>
 <html lang="ku">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>داشبۆردی قەرز</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>داشبۆردی فرۆشتن</title>
+  <style>
+    /* فۆنت و دیزاین */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f8fa;
+      color: #333;
+    }
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .container {
+      padding: 15px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    /* ڕیسپۆنسڤ */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 15px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+    }
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 20px;
+      color: #007bff;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+  </style>
 </head>
-<body class="bg-light">
+<body>
 
-<div class="container py-4">
-  <h2 class="text-center mb-4">📋 داشبۆردی بەڕێوەبردنی قەرز</h2>
+<header>داشبۆردی فرۆشتن - کۆکاکۆلا و پێبس</header>
 
-  <!-- Tabs -->
-  <ul class="nav nav-tabs mb-4" id="debtTabs">
-    <li class="nav-item">
-      <a class="nav-link active" data-bs-toggle="tab" href="#addDebt">➕ زیادکردنی قەرز</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="tab" href="#returnDebt">↩️ گەراندنەوەی قەرز</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="tab" href="#debtList">📊 کەشفی قەرزدار</a>
-    </li>
-  </ul>
-
-  <div class="tab-content">
-    <!-- Add Debt -->
-    <div class="tab-pane fade show active" id="addDebt">
-      <div class="card p-3 shadow-sm">
-        <form id="addDebtForm">
-          <input class="form-control mb-2" id="customer" placeholder="ناوی قەرزداری" required>
-          <input class="form-control mb-2" type="number" id="amount" placeholder="بڕی قەرز" required>
-          <input class="form-control mb-2" type="date" id="date" required>
-          <input class="form-control mb-3" id="details" placeholder="وردەکاری (هەڵبژێری)">
-          <button type="submit" class="btn btn-primary w-100">تۆمارکردن</button>
-        </form>
-      </div>
+<div class="container">
+  <div class="grid">
+    <!-- کۆی فرۆشتن -->
+    <div class="card">
+      <h3>کۆی فرۆشتن</h3>
+      <p><strong>کۆکاکۆلا:</strong> <span id="cocaTotal">0</span> کێس</p>
+      <p><strong>پێبس:</strong> <span id="pepsiTotal">0</span> کێس</p>
     </div>
-
-    <!-- Return Debt -->
-    <div class="tab-pane fade" id="returnDebt">
-      <div class="card p-3 shadow-sm">
-        <form id="returnDebtForm">
-          <input class="form-control mb-2" id="returnCustomer" placeholder="ناوی قەرزداری" required>
-          <input class="form-control mb-2" type="number" id="returnAmount" placeholder="بڕی گەڕاوە" required>
-          <input class="form-control mb-3" type="date" id="returnDate" required>
-          <button type="submit" class="btn btn-success w-100">تۆمارکردنی گەڕاندنەوە</button>
-        </form>
-      </div>
+    
+    <!-- لیستی فرۆشتن -->
+    <div class="card">
+      <h3>لیستی فرۆشتن</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>کالا</th>
+            <th>ژمارەی کێس</th>
+            <th>نرخ (دۆلار)</th>
+            <th>کۆی نرخی فرۆشتن</th>
+          </tr>
+        </thead>
+        <tbody id="salesList">
+          <!-- ڕیزەکان لێرە زیاد دەکرێن -->
+        </tbody>
+      </table>
     </div>
-
-    <!-- Debt List -->
-    <div class="tab-pane fade" id="debtList">
-      <div class="card p-3 shadow-sm">
-        <input class="form-control mb-3" id="searchCustomer" placeholder="گەڕان بە ناو..." oninput="searchDebt()">
-        <table class="table table-bordered table-striped">
-          <thead class="table-dark">
-            <tr>
-              <th>ناو</th>
-              <th>بڕ</th>
-              <th>بەروار</th>
-              <th>جۆر</th>
-              <th>وردەکاری</th>
-            </tr>
-          </thead>
-          <tbody id="debtTableBody"></tbody>
-        </table>
-      </div>
+    
+    <!-- ڕەوشی زیادکردنی فرۆشتن -->
+    <div class="card">
+      <h3>زیادکردنی فرۆشتن</h3>
+      <form id="salesForm">
+        <label for="product">کالا:</label><br/>
+        <select id="product" required>
+          <option value="Coca-Cola" data-price="20">کۆکاکۆلا</option>
+          <option value="Pepsi" data-price="18">پێبس</option>
+        </select><br/><br/>
+        
+        <label for="quantity">ژمارەی کێس:</label><br/>
+        <input type="number" id="quantity" min="1" value="1" required /><br/><br/>
+        
+        <button type="submit">زیادکردن</button>
+      </form>
     </div>
   </div>
 </div>
 
 <script>
-  let debts = JSON.parse(localStorage.getItem("debts") || "[]");
+  const salesList = document.getElementById('salesList');
+  const salesForm = document.getElementById('salesForm');
+  const cocaTotalEl = document.getElementById('cocaTotal');
+  const pepsiTotalEl = document.getElementById('pepsiTotal');
 
-  function saveData() {
-    localStorage.setItem("debts", JSON.stringify(debts));
-    renderTable();
-  }
+  let salesData = [];
 
-  function renderTable(filtered = null) {
-    const table = document.getElementById("debtTableBody");
-    table.innerHTML = "";
-    (filtered || debts).forEach(item => {
-      const row = `<tr>
-        <td>${item.name}</td>
-        <td>${item.amount}</td>
-        <td>${item.date}</td>
-        <td>${item.type}</td>
-        <td>${item.details || "-"}</td>
-      </tr>`;
-      table.innerHTML += row;
+  function updateDashboard() {
+    let cocaTotal = 0;
+    let pepsiTotal = 0;
+    salesList.innerHTML = '';
+
+    salesData.forEach(sale => {
+      const totalPrice = sale.price * sale.quantity;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${sale.product}</td>
+        <td>${sale.quantity}</td>
+        <td>${sale.price}</td>
+        <td>${totalPrice}</td>
+      `;
+      salesList.appendChild(tr);
+
+      if (sale.product === 'Coca-Cola') {
+        cocaTotal += sale.quantity;
+      } else if (sale.product === 'Pepsi') {
+        pepsiTotal += sale.quantity;
+      }
     });
+
+    cocaTotalEl.textContent = cocaTotal;
+    pepsiTotalEl.textContent = pepsiTotal;
   }
 
-  document.getElementById("addDebtForm").addEventListener("submit", e => {
+  salesForm.addEventListener('submit', e => {
     e.preventDefault();
-    debts.push({
-      name: document.getElementById("customer").value,
-      amount: parseFloat(document.getElementById("amount").value),
-      date: document.getElementById("date").value,
-      type: "قەرز",
-      details: document.getElementById("details").value
-    });
-    e.target.reset();
-    saveData();
+    const productSelect = document.getElementById('product');
+    const product = productSelect.value;
+    const price = parseFloat(productSelect.selectedOptions[0].dataset.price);
+    const quantity = parseInt(document.getElementById('quantity').value);
+
+    salesData.push({ product, price, quantity });
+    updateDashboard();
+    salesForm.reset();
   });
 
-  document.getElementById("returnDebtForm").addEventListener("submit", e => {
-    e.preventDefault();
-    debts.push({
-      name: document.getElementById("returnCustomer").value,
-      amount: -parseFloat(document.getElementById("returnAmount").value),
-      date: document.getElementById("returnDate").value,
-      type: "گەڕاوە",
-      details: ""
-    });
-    e.target.reset();
-    saveData();
-  });
-
-  function searchDebt() {
-    const q = document.getElementById("searchCustomer").value.toLowerCase();
-    const filtered = debts.filter(d => d.name.toLowerCase().includes(q));
-    renderTable(filtered);
-  }
-
-  renderTable();
+  // پێش‌ڕەوت کردن بۆ ئەوەی فرم نایسڕێتەوە بە نرخی سەرەتا
+  salesForm.querySelector('#quantity').value = 1;
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
