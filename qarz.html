@@ -115,6 +115,21 @@
             font-size: 14px;
         }
 
+        .logout-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+
         @media (max-width: 600px) {
             .stats-container {
                 grid-template-columns: 1fr;
@@ -197,9 +212,16 @@
             <h2>Enterprise Yearly</h2>
             <div>Settings</div>
             <div>+91 8092856577</div>
+            <button class="logout-btn" onclick="logout()">Log out</button>
         </div>
         
         <input type="text" class="search-bar" placeholder="Type here to search">
     </div>
+
+    <script>
+        function logout() {
+            window.location.href = "login.html"; // ئەمە دەنێرێ بۆ پەڕەی چوونە ژوورەوە
+        }
+    </script>
 </body>
 </html>
