@@ -1,100 +1,112 @@
 <!DOCTYPE html>
 <html lang="ku">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>داشبۆردی قەرز</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: sans-serif;
-    }
     body {
-      margin: 0;
-      padding: 0;
-      background: #f4f4f4;
-    }
-    header {
-      background-color: #4CAF50;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      font-size: 1.5rem;
+      background-color: #f8f9fa;
     }
     .dashboard {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
     }
     .card {
-      background-color: white;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
     }
-    h3 {
-      margin-top: 0;
-    }
-    form input, form select, form button {
-      width: 100%;
-      padding: 0.5rem;
-      margin: 0.5rem 0;
-    }
-    @media (max-width: 600px) {
-      header {
-        font-size: 1.2rem;
-      }
+    textarea {
+      resize: none;
     }
   </style>
 </head>
 <body>
-  <header>داشبۆردی بەڕێوەبردنی قەرز</header>
   <div class="dashboard">
-    <div class="card">
-      <h3>➕ زیادکردنی قەرز</h3>
-      <form>
-        <input type="text" placeholder="ناوی کریار" required />
-        <input type="number" placeholder="بڕی قەرز" required />
-        <input type="date" required />
-        <button type="submit">زیاد بکە</button>
-      </form>
-    </div>
+    <h2 class="text-center mb-4">📊 داشبۆردی بەڕێوەبردنی قەرز</h2>
 
-    <div class="card">
-      <h3>💰 گەڕاندنەوەی قەرز</h3>
-      <form>
-        <input type="text" placeholder="ناوی کریار" required />
-        <input type="number" placeholder="بڕی پارەی گەڕاوە" required />
-        <input type="date" required />
-        <button type="submit">گەڕاندنەوە</button>
-      </form>
-    </div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">➕ زیادکردنی قەرز</div>
+          <div class="card-body">
+            <form id="addDebtForm">
+              <div class="mb-3">
+                <label for="customerName" class="form-label">ناوی کریار</label>
+                <input type="text" class="form-control" id="customerName" required>
+              </div>
+              <div class="mb-3">
+                <label for="debtAmount" class="form-label">بڕی قەرز</label>
+                <input type="number" class="form-control" id="debtAmount" required>
+              </div>
+              <div class="mb-3">
+                <label for="debtNote" class="form-label">تێبینی</label>
+                <textarea class="form-control" id="debtNote" rows="2"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">زیادکردن</button>
+            </form>
+          </div>
+        </div>
+      </div>
 
-    <div class="card">
-      <h3>📋 کەشفی حساب</h3>
-      <form>
-        <input type="text" placeholder="ناوی کریار" required />
-        <button type="submit">بینینی کەشف</button>
-      </form>
-    </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">💰 گەڕاندنەوەی قەرز</div>
+          <div class="card-body">
+            <form id="payDebtForm">
+              <div class="mb-3">
+                <label for="payCustomer" class="form-label">ناوی کریار</label>
+                <input type="text" class="form-control" id="payCustomer" required>
+              </div>
+              <div class="mb-3">
+                <label for="payAmount" class="form-label">بڕی پارە</label>
+                <input type="number" class="form-control" id="payAmount" required>
+              </div>
+              <button type="submit" class="btn btn-success">پارەدان</button>
+            </form>
+          </div>
+        </div>
+      </div>
 
-    <div class="card">
-      <h3>✏️ گۆڕینی قەرز</h3>
-      <form>
-        <input type="text" placeholder="ID ی قەرز" required />
-        <input type="number" placeholder="بڕی نوێ" required />
-        <button type="submit">گۆڕانکاری</button>
-      </form>
-    </div>
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">📋 کەشفی حساب</div>
+          <div class="card-body">
+            <form id="searchForm" class="row g-2 mb-3">
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="searchCustomer" placeholder="گەڕان بۆ ناوی کریار">
+              </div>
+              <div class="col-md-6">
+                <button type="submit" class="btn btn-info w-100">گەڕان</button>
+              </div>
+            </form>
+            <div id="accountStatement">
+              <p class="text-muted">هیچ زانیارییەک نییە، تکایە ناوێک بنووسە.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <div class="card">
-      <h3>🗑️ سڕینەوەی قەرز</h3>
-      <form>
-        <input type="text" placeholder="ID ی قەرز" required />
-        <button type="submit">سڕینەوە</button>
-      </form>
     </div>
   </div>
+
+  <script>
+    document.getElementById('addDebtForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('قەرز زیاد کرا!');
+    });
+
+    document.getElementById('payDebtForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('پارەدان سەرکەوتوو بوو!');
+    });
+
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('searchCustomer').value;
+      document.getElementById('accountStatement').innerHTML = `<div class='alert alert-light'>کەشفی حساب بۆ <strong>${name}</strong> پیشان دەدرێت لێرە.</div>`;
+    });
+  </script>
 </body>
 </html>
