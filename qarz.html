@@ -3,164 +3,127 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>داشبۆردی فرۆشتن</title>
+  <title>داشبۆردی SalesOn</title>
   <style>
-    /* فۆنت و دیزاین */
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
       margin: 0;
-      background: #f5f8fa;
+      padding: 0;
       color: #333;
     }
     header {
       background-color: #007bff;
       color: white;
-      padding: 15px;
+      padding: 20px;
       text-align: center;
       font-size: 24px;
       font-weight: bold;
     }
-    .container {
-      padding: 15px;
-      max-width: 1200px;
-      margin: auto;
-    }
-    /* ڕیسپۆنسڤ */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 15px;
+    .dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 20px;
+      gap: 20px;
     }
     .card {
       background: white;
-      padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
-    }
-    .card h3 {
-      margin-top: 0;
-      margin-bottom: 15px;
-      font-size: 20px;
-      color: #007bff;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-    table, th, td {
-      border: 1px solid #ddd;
-    }
-    th, td {
-      padding: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      flex: 1 1 250px;
+      max-width: 300px;
       text-align: center;
     }
-    th {
+    .card h2 {
+      margin: 0;
+      font-size: 36px;
+      color: #007bff;
+    }
+    .card p {
+      margin: 8px 0 0;
+      font-size: 16px;
+      color: #555;
+    }
+    .sales-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+    .sales-table th, .sales-table td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+    }
+    .sales-table th {
       background-color: #007bff;
       color: white;
+    }
+    @media (max-width: 600px) {
+      .dashboard {
+        flex-direction: column;
+        align-items: center;
+      }
+      .card {
+        max-width: 90%;
+      }
     }
   </style>
 </head>
 <body>
 
-<header>داشبۆردی فرۆشتن - کۆکاکۆلا و پێبس</header>
+  <header>داشبۆردی SalesOn</header>
 
-<div class="container">
-  <div class="grid">
-    <!-- کۆی فرۆشتن -->
+  <div class="dashboard">
     <div class="card">
-      <h3>کۆی فرۆشتن</h3>
-      <p><strong>کۆکاکۆلا:</strong> <span id="cocaTotal">0</span> کێس</p>
-      <p><strong>پێبس:</strong> <span id="pepsiTotal">0</span> کێس</p>
+      <h2>150</h2>
+      <p>کڕیارە تایبەتەکان</p>
     </div>
-    
-    <!-- لیستی فرۆشتن -->
     <div class="card">
-      <h3>لیستی فرۆشتن</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>کالا</th>
-            <th>ژمارەی کێس</th>
-            <th>نرخ (دۆلار)</th>
-            <th>کۆی نرخی فرۆشتن</th>
-          </tr>
-        </thead>
-        <tbody id="salesList">
-          <!-- ڕیزەکان لێرە زیاد دەکرێن -->
-        </tbody>
-      </table>
+      <h2>320</h2>
+      <p>فرۆشتنی کۆی</p>
     </div>
-    
-    <!-- ڕەوشی زیادکردنی فرۆشتن -->
     <div class="card">
-      <h3>زیادکردنی فرۆشتن</h3>
-      <form id="salesForm">
-        <label for="product">کالا:</label><br/>
-        <select id="product" required>
-          <option value="Coca-Cola" data-price="20">کۆکاکۆلا</option>
-          <option value="Pepsi" data-price="18">پێبس</option>
-        </select><br/><br/>
-        
-        <label for="quantity">ژمارەی کێس:</label><br/>
-        <input type="number" id="quantity" min="1" value="1" required /><br/><br/>
-        
-        <button type="submit">زیادکردن</button>
-      </form>
+      <h2>12,450 $</h2>
+      <p>کۆی دارایی</p>
     </div>
   </div>
-</div>
 
-<script>
-  const salesList = document.getElementById('salesList');
-  const salesForm = document.getElementById('salesForm');
-  const cocaTotalEl = document.getElementById('cocaTotal');
-  const pepsiTotalEl = document.getElementById('pepsiTotal');
-
-  let salesData = [];
-
-  function updateDashboard() {
-    let cocaTotal = 0;
-    let pepsiTotal = 0;
-    salesList.innerHTML = '';
-
-    salesData.forEach(sale => {
-      const totalPrice = sale.price * sale.quantity;
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${sale.product}</td>
-        <td>${sale.quantity}</td>
-        <td>${sale.price}</td>
-        <td>${totalPrice}</td>
-      `;
-      salesList.appendChild(tr);
-
-      if (sale.product === 'Coca-Cola') {
-        cocaTotal += sale.quantity;
-      } else if (sale.product === 'Pepsi') {
-        pepsiTotal += sale.quantity;
-      }
-    });
-
-    cocaTotalEl.textContent = cocaTotal;
-    pepsiTotalEl.textContent = pepsiTotal;
-  }
-
-  salesForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const productSelect = document.getElementById('product');
-    const product = productSelect.value;
-    const price = parseFloat(productSelect.selectedOptions[0].dataset.price);
-    const quantity = parseInt(document.getElementById('quantity').value);
-
-    salesData.push({ product, price, quantity });
-    updateDashboard();
-    salesForm.reset();
-  });
-
-  // پێش‌ڕەوت کردن بۆ ئەوەی فرم نایسڕێتەوە بە نرخی سەرەتا
-  salesForm.querySelector('#quantity').value = 1;
-</script>
+  <table class="sales-table">
+    <thead>
+      <tr>
+        <th>کڕیار</th>
+        <th>مەحمول</th>
+        <th>ژمارەی فرۆشتن</th>
+        <th>کۆی نرخ</th>
+        <th>ڕێکەوت</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>عەلی</td>
+        <td>مۆبایل</td>
+        <td>3</td>
+        <td>1200 $</td>
+        <td>2025-06-01</td>
+      </tr>
+      <tr>
+        <td>حسین</td>
+        <td>کۆمپیوته‌ر</td>
+        <td>1</td>
+        <td>2300 $</td>
+        <td>2025-06-02</td>
+      </tr>
+      <tr>
+        <td>نەجم</td>
+        <td>ماوە</td>
+        <td>5</td>
+        <td>550 $</td>
+        <td>2025-06-03</td>
+      </tr>
+    </tbody>
+  </table>
 
 </body>
 </html>
