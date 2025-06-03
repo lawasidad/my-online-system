@@ -1,83 +1,180 @@
 <!DOCTYPE html>
-<html lang="ku">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>داشبۆردی SalesOn</title>
-<style>
-  body { font-family: Arial, sans-serif; margin:0; background:#f5f5f5; }
-  header { background:#007bff; color:#fff; padding:20px; text-align:center; font-size:24px; }
-  .container { max-width:1200px; margin:20px auto; padding:0 20px; }
-  .stats { display:flex; justify-content:space-around; margin-bottom:30px; }
-  .card { background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1); width:30%; text-align:center; }
-  .card h2 { margin:0 0 10px; font-size:32px; color:#007bff; }
-  table { width:100%; border-collapse: collapse; background:#fff; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-  th, td { padding:12px; border-bottom:1px solid #ddd; text-align:center; }
-  th { background:#007bff; color:#fff; }
-  @media (max-width:768px) {
-    .stats { flex-direction:column; gap:20px; }
-    .card { width:100%; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #444;
+            margin-top: 20px;
+        }
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .menu-item {
+            background: #f0f0f0;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .menu-item:hover {
+            background: #e0e0e0;
+        }
+        .divider {
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+        }
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .stat-box {
+            flex: 1;
+            min-width: 200px;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .stat-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .stat-value {
+            font-size: 18px;
+            color: #222;
+        }
+        .quick-stats {
+            margin-top: 30px;
+        }
+        .quick-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .quick-stat-item {
+            background: #f0f8ff;
+            padding: 12px;
+            border-radius: 6px;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #777;
+        }
+        .search-bar {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
-
-<header>داشبۆردی SalesOn</header>
-
-<div class="container">
-  <div class="stats">
-    <div class="card">
-      <h2 id="totalCustomers">150</h2>
-      <p>کڕیارەکان</p>
+    <div class="dashboard">
+        <h1>Dashboard</h1>
+        
+        <h2>Live Location</h2>
+        <div class="menu">
+            <div class="menu-item">Inventory</div>
+            <div class="menu-item">Parties</div>
+            <div class="menu-item">Sales</div>
+            <div class="menu-item">Purchase</div>
+            <div class="menu-item">Van Sale</div>
+            <div class="menu-item">Finance</div>
+            <div class="menu-item">Routes</div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-title">Order</div>
+                <div class="stat-value">IQD 0</div>
+                <div class="stat-value">0</div>
+            </div>
+            
+            <div class="stat-box">
+                <div class="stat-title">Invoice</div>
+                <div class="stat-value">IQD 17,277,500.00</div>
+                <div class="stat-value">291 units</div>
+            </div>
+            
+            <div class="stat-box">
+                <div class="stat-title">03/06/2025 - 03/06/2021</div>
+                <div class="stat-value">Visited 435</div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="quick-stats">
+            <h2>Select Us... Quick Statistics</h2>
+            <div class="quick-stats-grid">
+                <div class="quick-stat-item">
+                    <div>To collect:</div>
+                    <div class="stat-value">1103828500</div>
+                </div>
+                <div class="quick-stat-item">
+                    <div>To pay:</div>
+                    <div class="stat-value">0</div>
+                </div>
+                <div class="quick-stat-item">
+                    <div>Low Stock Count:</div>
+                    <div class="stat-value">0</div>
+                </div>
+                <div class="quick-stat-item">
+                    <div>Stock Value:</div>
+                    <div class="stat-value">0</div>
+                </div>
+                <div class="quick-stat-item">
+                    <div>Product Count:</div>
+                    <div class="stat-value">20</div>
+                </div>
+                <div class="quick-stat-item">
+                    <div>Party Count:</div>
+                    <div class="stat-value">6139</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="footer">
+            <h2>Enterprise Yearly</h2>
+            <div>Settings</div>
+            <div>+91 8092856577</div>
+        </div>
+        
+        <input type="text" class="search-bar" placeholder="Type here to search">
     </div>
-    <div class="card">
-      <h2 id="totalSales">320</h2>
-      <p>ژمارەی فرۆشتن</p>
-    </div>
-    <div class="card">
-      <h2 id="totalRevenue">12,450 $</h2>
-      <p>کۆی دارایی</p>
-    </div>
-  </div>
-
-  <table>
-    <thead>
-      <tr>
-        <th>کڕیار</th>
-        <th>مەحمول</th>
-        <th>ژمارەی فرۆشتن</th>
-        <th>کۆی نرخ</th>
-        <th>ڕێکەوت</th>
-      </tr>
-    </thead>
-    <tbody id="salesTableBody">
-      <!-- داتاکان لێرە دەتوانرێن زیاد بکرێن بە JS -->
-    </tbody>
-  </table>
-</div>
-
-<script>
-  // نموونەی داتای فرۆشتن
-  const salesData = [
-    { customer: "عەلی", product: "مۆبایل", quantity: 3, price: 1200, date: "2025-06-01" },
-    { customer: "حسین", product: "کۆمپیوته‌ر", quantity: 1, price: 2300, date: "2025-06-02" },
-    { customer: "نەجم", product: "ماوە", quantity: 5, price: 550, date: "2025-06-03" }
-  ];
-
-  const tbody = document.getElementById('salesTableBody');
-
-  salesData.forEach(sale => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${sale.customer}</td>
-      <td>${sale.product}</td>
-      <td>${sale.quantity}</td>
-      <td>${sale.price} $</td>
-      <td>${sale.date}</td>
-    `;
-    tbody.appendChild(row);
-  });
-</script>
-
 </body>
 </html>
