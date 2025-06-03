@@ -1,165 +1,128 @@
 <!DOCTYPE html>
 <html lang="ku">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>داشبۆردی قەرز</title>
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma;
-    }
     body {
+      font-family: sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(to right, #6a11cb, #2575fc);
-      color: #333;
-      direction: rtl;
+      background: #f0f2f5;
     }
+
+    header {
+      background-color: #1e88e5;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
     .container {
-      max-width: 960px;
-      margin: 20px auto;
-      background: #fff;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
     }
-    h1 {
-      text-align: center;
-      color: #5d3f6a;
+
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-    form {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-top: 0.5rem;
     }
-    form input, form button {
-      padding: 10px;
-      flex: 1 1 200px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    form button {
-      background: #2575fc;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-    form button:hover {
-      background: #1a5edb;
-    }
-    table {
+
+    input, select, button, textarea {
       width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-    th, td {
-      padding: 12px;
-      border-bottom: 1px solid #eee;
-      text-align: center;
-    }
-    .actions button {
-      margin: 0 3px;
-      padding: 5px 10px;
-      border: none;
+      padding: 0.5rem;
+      margin-top: 0.2rem;
       border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #1e88e5;
+      color: white;
+      border: none;
       cursor: pointer;
     }
-    .edit { background-color: #ffc107; color: #fff; }
-    .delete { background-color: #dc3545; color: #fff; }
-    .pay { background-color: #28a745; color: #fff; }
+
+    button:hover {
+      background-color: #1565c0;
+    }
 
     @media (max-width: 600px) {
-      form {
-        flex-direction: column;
+      header {
+        font-size: 1rem;
       }
     }
   </style>
 </head>
+
 <body>
+  <header>
+    <h1>داشبۆردی بەڕێوەبردنی قەرز</h1>
+  </header>
+
   <div class="container">
-    <h1>سیستەمی قەرز</h1>
+    <!-- زیادکردنی قەرز -->
+    <div class="card">
+      <h2>➕ زیادکردنی قەرز</h2>
+      <label>ناوی کریار</label>
+      <input type="text" placeholder="ناوی کریار">
+      <label>بڕی قەرز</label>
+      <input type="number" placeholder="بڕ">
+      <label>بەروار</label>
+      <input type="date">
+      <button>زیادکردن</button>
+    </div>
 
-    <form id="debtForm">
-      <input type="text" id="name" placeholder="ناوی قەرزداری" required>
-      <input type="number" id="amount" placeholder="بڕی قەرز" required>
-      <input type="date" id="date" required>
-      <button type="submit">➕ زیادکردن قەرز</button>
-    </form>
+    <!-- گەرانەوەی قەرز -->
+    <div class="card">
+      <h2>💰 گەرانەوەی پارە</h2>
+      <label>ناوی کریار</label>
+      <input type="text" placeholder="ناوی کریار">
+      <label>بڕی پارەی گەڕاوەوە</label>
+      <input type="number" placeholder="بڕ">
+      <label>بەروار</label>
+      <input type="date">
+      <button>گەڕاندنەوە</button>
+    </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>ناو</th>
-          <th>بڕ</th>
-          <th>بەروار</th>
-          <th>کردارەکان</th>
-        </tr>
-      </thead>
-      <tbody id="debtList"></tbody>
-    </table>
+    <!-- کەشفی حساب -->
+    <div class="card">
+      <h2>📋 کەشفی حساب</h2>
+      <label>ناوی کریار</label>
+      <input type="text" placeholder="ناوی کریار">
+      <button>بینینی کەشف</button>
+      <textarea rows="5" placeholder="ئەمجا کەشفی حساب دەرئەکەوێت..."></textarea>
+    </div>
+
+    <!-- گۆڕینی قەرز -->
+    <div class="card">
+      <h2>✏️ گۆڕینی قەرز</h2>
+      <label>ناسنامەی قەرز</label>
+      <input type="text" placeholder="ID">
+      <label>بڕی نوێ</label>
+      <input type="number" placeholder="بڕ">
+      <button>گۆڕین</button>
+    </div>
+
+    <!-- سڕینەوەی قەرز -->
+    <div class="card">
+      <h2>🗑️ سڕینەوەی قەرز</h2>
+      <label>ناسنامەی قەرز</label>
+      <input type="text" placeholder="ID">
+      <button>سڕینەوە</button>
+    </div>
   </div>
-
-  <script>
-    const form = document.getElementById('debtForm');
-    const debtList = document.getElementById('debtList');
-    const debts = [];
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const amount = parseFloat(document.getElementById('amount').value);
-      const date = document.getElementById('date').value;
-      debts.push({ name, amount, date });
-      renderDebts();
-      form.reset();
-    });
-
-    function renderDebts() {
-      debtList.innerHTML = '';
-      debts.forEach((debt, index) => {
-        debtList.innerHTML += `
-          <tr>
-            <td>${debt.name}</td>
-            <td>${debt.amount}</td>
-            <td>${debt.date}</td>
-            <td class="actions">
-              <button class="pay" onclick="payDebt(${index})">💰 گەرانەوە</button>
-              <button class="edit" onclick="editDebt(${index})">✏️ گۆڕین</button>
-              <button class="delete" onclick="deleteDebt(${index})">🗑️ سڕینەوە</button>
-            </td>
-          </tr>
-        `;
-      });
-    }
-
-    function deleteDebt(index) {
-      if (confirm('دڵنیایت لە سڕینەوە؟')) {
-        debts.splice(index, 1);
-        renderDebts();
-      }
-    }
-
-    function editDebt(index) {
-      const d = debts[index];
-      const newName = prompt('ناوی نوێ:', d.name);
-      const newAmount = parseFloat(prompt('بڕی نوێ:', d.amount));
-      const newDate = prompt('بەرواری نوێ:', d.date);
-      if (newName && newAmount && newDate) {
-        debts[index] = { name: newName, amount: newAmount, date: newDate };
-        renderDebts();
-      }
-    }
-
-    function payDebt(index) {
-      const paid = parseFloat(prompt('بڕی پارەی گەڕاوە:', 0));
-      if (!isNaN(paid)) {
-        debts[index].amount -= paid;
-        if (debts[index].amount <= 0) debts.splice(index, 1);
-        renderDebts();
-      }
-    }
-  </script>
 </body>
+
 </html>
