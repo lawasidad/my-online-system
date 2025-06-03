@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disk Dashboard</title>
+    <title>Dashboard</title>
     <style>
         * {
             margin: 0;
@@ -115,7 +115,6 @@
             font-size: 14px;
         }
 
-        /* ریسپۆنسیڤ بۆ مۆبایل */
         @media (max-width: 600px) {
             .stats-container {
                 grid-template-columns: 1fr;
@@ -132,14 +131,14 @@
         
         <h2>Dashboard</h2>
         <div class="menu">
-            <div class="menu-item" onclick="navigate('live-location')">Live Location</div>
-            <div class="menu-item" onclick="navigate('inventory')">Inventory</div>
-            <div class="menu-item" onclick="navigate('parties')">Parties</div>
-            <div class="menu-item" onclick="navigate('sales')">Sales</div>
-            <div class="menu-item" onclick="navigate('purchase')">Purchase</div>
-            <div class="menu-item" onclick="navigate('van-sale')">Van Sale</div>
-            <div class="menu-item" onclick="navigate('finance')">Finance</div>
-            <div class="menu-item" onclick="navigate('routes')">Routes</div>
+            <div class="menu-item" onclick="window.location.href='live-location.html'">Live Location</div>
+            <div class="menu-item" onclick="window.location.href='inventory.html'">Inventory</div>
+            <div class="menu-item" onclick="window.location.href='customer.html'">Parties</div>
+            <div class="menu-item" onclick="window.location.href='sales.html'">Sales</div>
+            <div class="menu-item" onclick="window.location.href='purchase.html'">Purchase</div>
+            <div class="menu-item" onclick="window.location.href='van-sale.html'">Van Sale</div>
+            <div class="menu-item" onclick="window.location.href='finance.html'">Finance</div>
+            <div class="menu-item" onclick="window.location.href='routes.html'">Routes</div>
         </div>
         
         <div class="divider"></div>
@@ -212,13 +211,5 @@
         
         <input type="text" class="search-bar" placeholder="Type here to search">
     </div>
-
-    <script>
-        function navigate(section) {
-            // ئەمە فەنکشنەکەی کلیکەکەیە (دەتوانیت بە PHP یان JavaScript تەواوی بکەیت)
-            alert(ئێستا دەچیتە ناو بەشی ${section.toUpperCase()});
-            // وێنە: window.location.href = ${section}.html;
-        }
-    </script>
 </body>
 </html>
