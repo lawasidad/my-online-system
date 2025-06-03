@@ -2,63 +2,93 @@
 <html lang="ku">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>داشبۆردی قەرز</title>
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       font-family: 'Segoe UI', Tahoma;
-      direction: rtl;
-      background: #f4f4f4;
-      padding: 20px;
     }
-    .dashboard {
-      max-width: 1000px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: #333;
+      direction: rtl;
+    }
+    .container {
+      max-width: 960px;
+      margin: 20px auto;
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     h1 {
       text-align: center;
       color: #5d3f6a;
     }
-    form, table {
-      margin: 20px 0;
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
     }
-    input, button, select {
+    form input, form button {
       padding: 10px;
-      margin: 5px;
+      flex: 1 1 200px;
       border: 1px solid #ccc;
       border-radius: 5px;
+    }
+    form button {
+      background: #2575fc;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    form button:hover {
+      background: #1a5edb;
     }
     table {
       width: 100%;
       border-collapse: collapse;
+      margin-bottom: 20px;
     }
     th, td {
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
+      padding: 12px;
+      border-bottom: 1px solid #eee;
       text-align: center;
     }
     .actions button {
-      margin: 0 2px;
+      margin: 0 3px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .edit { background-color: #ffc107; color: #fff; }
+    .delete { background-color: #dc3545; color: #fff; }
+    .pay { background-color: #28a745; color: #fff; }
+
+    @media (max-width: 600px) {
+      form {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="dashboard">
+  <div class="container">
     <h1>سیستەمی قەرز</h1>
 
-    <!-- 📥 فۆڕمی زیادکردن قەرز -->
     <form id="debtForm">
-      <input type="text" id="name" placeholder="ناوی کریار" required>
+      <input type="text" id="name" placeholder="ناوی قەرزداری" required>
       <input type="number" id="amount" placeholder="بڕی قەرز" required>
       <input type="date" id="date" required>
       <button type="submit">➕ زیادکردن قەرز</button>
     </form>
 
-    <!-- 📋 خشتەی قەرزەکان -->
-    <table id="debtTable">
+    <table>
       <thead>
         <tr>
           <th>ناو</th>
@@ -67,43 +97,37 @@
           <th>کردارەکان</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- قەرزەکان لێرە دابنرێن -->
-      </tbody>
+      <tbody id="debtList"></tbody>
     </table>
-
-    <!-- 🧾 ناردن بۆ PDF -->
-    <button onclick="downloadPDF()">📄 دابه‌زاندنی PDF</button>
   </div>
 
   <script>
-    const form = document.getElementById("debtForm");
-    const table = document.getElementById("debtTable").querySelector("tbody");
-
+    const form = document.getElementById('debtForm');
+    const debtList = document.getElementById('debtList');
     const debts = [];
 
-    form.onsubmit = e => {
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
-      const name = document.getElementById("name").value;
-      const amount = document.getElementById("amount").value;
-      const date = document.getElementById("date").value;
+      const name = document.getElementById('name').value;
+      const amount = parseFloat(document.getElementById('amount').value);
+      const date = document.getElementById('date').value;
       debts.push({ name, amount, date });
       renderDebts();
       form.reset();
-    };
+    });
 
     function renderDebts() {
-      table.innerHTML = "";
+      debtList.innerHTML = '';
       debts.forEach((debt, index) => {
-        table.innerHTML += `
+        debtList.innerHTML += `
           <tr>
             <td>${debt.name}</td>
             <td>${debt.amount}</td>
             <td>${debt.date}</td>
             <td class="actions">
-              <button onclick="editDebt(${index})">✏️</button>
-              <button onclick="deleteDebt(${index})">🗑️</button>
-              <button onclick="payDebt(${index})">💰</button>
+              <button class="pay" onclick="payDebt(${index})">💰 گەرانەوە</button>
+              <button class="edit" onclick="editDebt(${index})">✏️ گۆڕین</button>
+              <button class="delete" onclick="deleteDebt(${index})">🗑️ سڕینەوە</button>
             </td>
           </tr>
         `;
@@ -111,33 +135,30 @@
     }
 
     function deleteDebt(index) {
-      if (confirm("دڵنیایت لە سڕینەوە؟")) {
+      if (confirm('دڵنیایت لە سڕینەوە؟')) {
         debts.splice(index, 1);
         renderDebts();
       }
     }
 
     function editDebt(index) {
-      const debt = debts[index];
-      const name = prompt("ناوی نوێ:", debt.name);
-      const amount = prompt("بڕی نوێ:", debt.amount);
-      const date = prompt("بەرواری نوێ:", debt.date);
-      if (name && amount && date) {
-        debts[index] = { name, amount, date };
+      const d = debts[index];
+      const newName = prompt('ناوی نوێ:', d.name);
+      const newAmount = parseFloat(prompt('بڕی نوێ:', d.amount));
+      const newDate = prompt('بەرواری نوێ:', d.date);
+      if (newName && newAmount && newDate) {
+        debts[index] = { name: newName, amount: newAmount, date: newDate };
         renderDebts();
       }
     }
 
     function payDebt(index) {
-      const paid = prompt("بڕی پارەی گەڕاوە:", 0);
-      if (paid) {
-        debts[index].amount -= parseFloat(paid);
+      const paid = parseFloat(prompt('بڕی پارەی گەڕاوە:', 0));
+      if (!isNaN(paid)) {
+        debts[index].amount -= paid;
+        if (debts[index].amount <= 0) debts.splice(index, 1);
         renderDebts();
       }
-    }
-
-    function downloadPDF() {
-      alert("📄 ناردنی PDF کار ناکات لەم وێبە، بەکاربهێنە jsPDF لە پروژه‌ی ڕاستەقینە.");
     }
   </script>
 </body>
