@@ -1,128 +1,100 @@
 <!DOCTYPE html>
 <html lang="ku">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>داشبۆردی قەرز</title>
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       font-family: sans-serif;
+    }
+    body {
       margin: 0;
       padding: 0;
-      background: #f0f2f5;
+      background: #f4f4f4;
     }
-
     header {
-      background-color: #1e88e5;
+      background-color: #4CAF50;
       color: white;
       padding: 1rem;
       text-align: center;
+      font-size: 1.5rem;
     }
-
-    .container {
+    .dashboard {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1rem;
       padding: 1rem;
     }
-
     .card {
-      background: white;
+      background-color: white;
       padding: 1rem;
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
-
-    label {
-      display: block;
-      margin-top: 0.5rem;
+    h3 {
+      margin-top: 0;
     }
-
-    input, select, button, textarea {
+    form input, form select, form button {
       width: 100%;
       padding: 0.5rem;
-      margin-top: 0.2rem;
-      border-radius: 4px;
-      border: 1px solid #ccc;
+      margin: 0.5rem 0;
     }
-
-    button {
-      background-color: #1e88e5;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #1565c0;
-    }
-
     @media (max-width: 600px) {
       header {
-        font-size: 1rem;
+        font-size: 1.2rem;
       }
     }
   </style>
 </head>
-
 <body>
-  <header>
-    <h1>داشبۆردی بەڕێوەبردنی قەرز</h1>
-  </header>
-
-  <div class="container">
-    <!-- زیادکردنی قەرز -->
+  <header>داشبۆردی بەڕێوەبردنی قەرز</header>
+  <div class="dashboard">
     <div class="card">
-      <h2>➕ زیادکردنی قەرز</h2>
-      <label>ناوی کریار</label>
-      <input type="text" placeholder="ناوی کریار">
-      <label>بڕی قەرز</label>
-      <input type="number" placeholder="بڕ">
-      <label>بەروار</label>
-      <input type="date">
-      <button>زیادکردن</button>
+      <h3>➕ زیادکردنی قەرز</h3>
+      <form>
+        <input type="text" placeholder="ناوی کریار" required />
+        <input type="number" placeholder="بڕی قەرز" required />
+        <input type="date" required />
+        <button type="submit">زیاد بکە</button>
+      </form>
     </div>
 
-    <!-- گەرانەوەی قەرز -->
     <div class="card">
-      <h2>💰 گەرانەوەی پارە</h2>
-      <label>ناوی کریار</label>
-      <input type="text" placeholder="ناوی کریار">
-      <label>بڕی پارەی گەڕاوەوە</label>
-      <input type="number" placeholder="بڕ">
-      <label>بەروار</label>
-      <input type="date">
-      <button>گەڕاندنەوە</button>
+      <h3>💰 گەڕاندنەوەی قەرز</h3>
+      <form>
+        <input type="text" placeholder="ناوی کریار" required />
+        <input type="number" placeholder="بڕی پارەی گەڕاوە" required />
+        <input type="date" required />
+        <button type="submit">گەڕاندنەوە</button>
+      </form>
     </div>
 
-    <!-- کەشفی حساب -->
     <div class="card">
-      <h2>📋 کەشفی حساب</h2>
-      <label>ناوی کریار</label>
-      <input type="text" placeholder="ناوی کریار">
-      <button>بینینی کەشف</button>
-      <textarea rows="5" placeholder="ئەمجا کەشفی حساب دەرئەکەوێت..."></textarea>
+      <h3>📋 کەشفی حساب</h3>
+      <form>
+        <input type="text" placeholder="ناوی کریار" required />
+        <button type="submit">بینینی کەشف</button>
+      </form>
     </div>
 
-    <!-- گۆڕینی قەرز -->
     <div class="card">
-      <h2>✏️ گۆڕینی قەرز</h2>
-      <label>ناسنامەی قەرز</label>
-      <input type="text" placeholder="ID">
-      <label>بڕی نوێ</label>
-      <input type="number" placeholder="بڕ">
-      <button>گۆڕین</button>
+      <h3>✏️ گۆڕینی قەرز</h3>
+      <form>
+        <input type="text" placeholder="ID ی قەرز" required />
+        <input type="number" placeholder="بڕی نوێ" required />
+        <button type="submit">گۆڕانکاری</button>
+      </form>
     </div>
 
-    <!-- سڕینەوەی قەرز -->
     <div class="card">
-      <h2>🗑️ سڕینەوەی قەرز</h2>
-      <label>ناسنامەی قەرز</label>
-      <input type="text" placeholder="ID">
-      <button>سڕینەوە</button>
+      <h3>🗑️ سڕینەوەی قەرز</h3>
+      <form>
+        <input type="text" placeholder="ID ی قەرز" required />
+        <button type="submit">سڕینەوە</button>
+      </form>
     </div>
   </div>
 </body>
-
 </html>
